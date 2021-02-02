@@ -9,10 +9,16 @@ export const MyDetailsList = React.memo<IControlProps>(({control, parentDisabled
     const ws = useContext(WebSocketContext);
 
     const detailsListProps: IDetailsListProps = {
-        items: control.items,
-        columns: control.columns,
+        items: [],
+        //columns: [],
         layoutMode: control.layoutMode
     };
+
+    detailsListProps.items = useSelector<any, any[]>((state: any) => control.c.map((childId: any) =>
+    state.page.controls[childId])
+      .filter((lc: any) => lc.t === 'listItem')
+      .map((lc: any) => ({ key: lc.key, value: lc.value, type: lc.type})), shallowEqual);  
+
 
     return <DetailsList {...detailsListProps} />
 })

@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	version  = "unknown"
+	version  = "1.2.3"
 	commit   = "unknown"
 	LogLevel string
 )

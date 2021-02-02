@@ -7,11 +7,11 @@ import { IPageProps } from './IPageProps'
 import { WebSocketContext } from '../WebSocket';
 
 export const Page = React.memo<IPageProps>(({control, pageName}) => {
-
+  console.log(control);
   //console.log(`render page: ${control.i}`);
 
   const ws = useContext(WebSocketContext);
-
+  console.log(ws);
   // page title
   let title = `${pageName} - pglet`;
   if (control.title) {
@@ -30,7 +30,8 @@ export const Page = React.memo<IPageProps>(({control, pageName}) => {
   }, [control, ws]);
 
   const childControls = useSelector((state: any) => control.c.map((childId: string) => state.page.controls[childId]), shallowEqual);
-
+  console.log("child controls");
+  console.log(childControls);
   if (control.visible === "false") {
     return null;
   }
