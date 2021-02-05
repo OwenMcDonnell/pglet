@@ -5,9 +5,9 @@ import { DetailsList, IDetailsListProps, IColumn } from '@fluentui/react';
 import { IControlProps } from './IControlProps'
 
 
-export const MyDetailsList = React.memo<IControlProps>(({control, parentDisabled}) => {
-
-    const ws = useContext(WebSocketContext);
+export const MyDetailsList = React.memo<IControlProps>(({control}) => {
+    
+  const ws = useContext(WebSocketContext);
 
     const detailsListProps: IDetailsListProps = {
         items: [],
@@ -19,12 +19,15 @@ export const MyDetailsList = React.memo<IControlProps>(({control, parentDisabled
     state.page.controls[childId])
       .filter((lc: any) => lc.t === 'listItem')
       .map((lc: any) => ({ key: lc.key, value: lc.value, type: lc.type})), shallowEqual);  
-    console.log("detailsListProps");
-    console.log(detailsListProps);
+
+
     detailsListProps.columns = useSelector<any, any[]>((state: any) => control.c.map((childId: any) =>
     state.page.controls[childId])
-      .filter((lc: any) => lc.t === 'listItem')
-      .map((lc: any) => ({ key: lc.key, value: lc.value, type: lc.type})), shallowEqual);  
+      .filter((lc: any) => lc.t === 'listColumn')
+      .map((lc: any) => ({ key: lc.key, name: lc.value, minWidth: 80})), shallowEqual);  
+
+    console.log("detailsListProps");
+    console.log(detailsListProps);
 
     return <DetailsList {...detailsListProps} />
 })
